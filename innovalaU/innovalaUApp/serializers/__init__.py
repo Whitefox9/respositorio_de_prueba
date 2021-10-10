@@ -1,5 +1,5 @@
 from .estudianteSerializer import UserSerializer
-from .tutoriaSerializer import TutoriaSerializer
+from .cuentaSerializer import CuentaSerializer
 '''
 from .tutorSerializer import TutorSerializer
 from .temaSerializer import TemaSerializer

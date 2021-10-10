@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from innovalaUApp.models.user import User_estudiante
-from innovalaUApp.models.tutoria import Tutoria
+from innovalaUApp.models.cuenta import Cuenta
 '''
 from innovalaUApp.models import comentarios
 from innovalaUApp.models.comentarios import Comentarios
@@ -12,24 +12,24 @@ from innovalaUApp.serializers.comentarioSerializer import ComentariosSerializer
 from innovalaUApp.serializers.temaSerializer import TemaSerializer
 from innovalaUApp.serializers.tutorSerializer import TutorSerializer
 '''
-from innovalaUApp.serializers.tutoriaSerializer import TutoriaSerializer
+from innovalaUApp.serializers.cuentaSerializer import CuentaSerializer
 
 class UserSerializer(serializers.ModelSerializer):
-     tutoria = TutoriaSerializer()
+     cuenta = CuentaSerializer()
      class Meta:
           model = User_estudiante
-          fields = ['id', 'email', 'password', 'nombresEstudiante', 'apellidosEstudiante', 'edadEstudiante', 'tutoria']
+          fields = ['id', 'email', 'password', 'nombresEstudiante', 'apellidosEstudiante', 'edadEstudiante', 'cuenta']
      
-     def create(self, validated_data_tutoria):
-          tutoriaData = validated_data_tutoria.pop('tutoria')
+     def create(self, validated_data):
+          cuentaData = validated_data.pop('cuenta')
           '''
           tutorData = validated_data_tutoria.pop('tutor')
           temaData = validated_data_tutoria.pop('tema')
           comentariosData = validated_data_tutoria.pop('comentarios')
           '''
           
-          userInstance = User_estudiante.objects.create(**validated_data_tutoria)
-          Tutoria.objects.create(estudianteID=userInstance, **tutoriaData)
+          userInstance = User_estudiante.objects.create(**validated_data)
+          Cuenta.objects.create(estudianteID=userInstance, **cuentaData)
           '''
           Tutor.objects.create(user=userInstance, **tutoriaData, **tutorData, **temaData, **comentariosData)
           Tema.objects.create(user=userInstance, **tutoriaData, **tutorData, **temaData, **comentariosData)
@@ -39,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
           
      def to_representation(self, obj):
           user = User_estudiante.objects.get(id=obj.id)
-          tutoria = Tutoria.objects.get(estudianteID=obj.id)
+          cuenta = Cuenta.objects.get(estudianteID=obj.id)
           
           return {
                'id': user.idEstudiante,
@@ -48,10 +48,10 @@ class UserSerializer(serializers.ModelSerializer):
                'nombresEstudiante': user.nombresEstudiante,
                'apellidosEstudiante': user.apellidosEstudiante,
                'edadEstudiante': user.edadEstudiante,
-               'tutoria': {
-                    'idTutoria': tutoria.idTutoria,
-                    'fechaTutoria': tutoria.fechaTutoria,
-                    'calificacionTutoria': tutoria.calificacionTutoria
+               'cuenta': {
+                    'idCuenta': cuenta.idCuenta,
+                    'lastChangeDate': cuenta.lastChangeDate,
+                    'isActive': cuenta.isActive
                }
      }
 
