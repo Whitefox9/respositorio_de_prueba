@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.backends import TokenBackend
 from rest_framework.permissions import IsAuthenticated
  
-from innovalaUApp.models.estudiante import User_estudiante
+from innovalaUApp.models.user import User_estudiante
 from innovalaUApp.serializers.estudianteSerializer import UserSerializer
  
 class UserDetailView(generics.RetrieveAPIView):

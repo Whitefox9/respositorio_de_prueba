@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         return user
  
 class User_estudiante(AbstractBaseUser, PermissionsMixin):
-    idEstudiante = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     email = models.EmailField('Email', max_length = 100, unique=True)
     password = models.CharField('Password', max_length = 256)
     nombresEstudiante = models.CharField('Nombres Estudiante', max_length = 50, unique=True)
